@@ -1,10 +1,16 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <title>$Title$</title>
-</head>
+<html lang="ja">
+<th:block th:replace="~{layout :: head(Top)}"></th:block>
+
 <body>
-$END$
+<th:block th:replace="~{layout :: header}"></th:block>
+
+<main class="container mt-3">
+    <h3>図書登録</h3>
+    <p>図書登録画面です。</p>
+</main>
+
+<th:block th:replace="~{layout :: footer}"></th:block>
+<th:block th:replace="~{layout :: script}"></th:block>
 </body>
 </html>
