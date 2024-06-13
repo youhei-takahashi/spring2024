@@ -16,7 +16,7 @@ public class WebSecurityConfig {
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
             .authorizeHttpRequests(requests -> requests
-                .requestMatchers("/").permitAll()   // "/" というリクエストに対してはログイン不要
+                .requestMatchers("/", "/common/**").permitAll()   // "/", "/common/**" というリクエストに対してはログイン不要
                 .anyRequest().authenticated()         // それ以外のリクエストに対してはログインが必要
             ).formLogin(login -> login
                 .loginProcessingUrl("/login")        // ログイン処理を行うURL (POST)
