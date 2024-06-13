@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="ja">
+<th:block th:replace="~{layout :: head(Top)}"></th:block>
+
+<body>
+<th:block th:replace="~{layout :: header}"></th:block>
+
+<main class="container mt-3">
+    <div class="alert alert-danger" th:if="${param.error}">
+        ID、またはパスワードが違います
+    </div>
+    <form th:action="@{/login}" method="post">
+        <p>ID：<input class="form-control" type="text" name="username"></p>
+        <p>パスワード：<input class="form-control" type="password" name="password"></p>
+        <button type="submit" class="btn btn-primary">ログイン</button>
+    </form>
+</main>
+
+<th:block th:replace="~{layout :: footer}"></th:block>
+<th:block th:replace="~{layout :: script}"></th:block>
+</body>
+</html>

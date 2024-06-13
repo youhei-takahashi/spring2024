@@ -4,6 +4,8 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 
 @Configuration
@@ -16,8 +18,19 @@ public class WebSecurityConfig {
             .authorizeHttpRequests(requests -> requests
                 .requestMatchers("/").permitAll()   // "/" というリクエストに対してはログイン不要
                 .anyRequest().authenticated()         // それ以外のリクエストに対してはログインが必要
+            ).formLogin(login -> login
+                .loginProcessingUrl("/login")        // ログイン処理を行うURL (POST)
+                .loginPage("/login")                 // ログイン画面のURL  (GET)]
+                .defaultSuccessUrl("/")              // ログイン成功時のリダイレクト先
+                .failureUrl("/login?error")  // ログイン失敗時のリダイレクト先
+                .permitAll()                         // ログイン画面にはログイン不要
             );
 
         return http.build();
+    }
+
+    @Bean
+    public PasswordEncoder passwordEncoder() {
+        return new BCryptPasswordEncoder();
     }
 }
