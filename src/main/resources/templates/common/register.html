@@ -7,20 +7,23 @@
 
 <main class="container mt-3">
     <h3>ユーザー登録</h3>
-    <form th:action="@{/common/register}" method="post">
+    <form th:action="@{/common/register}" th:object="${userForm}" method="post">
         <div class="mb-3">
             <label for="username" class="form-label">ユーザー名</label>
-            <input type="text" class="form-control" id="username" name="username" required minlength="5" maxlength="64">
+            <input type="text" class="form-control" id="username" name="username" th:field="*{username}" required minlength="5" maxlength="64">
+            <div th:errors="*{username}" class="alert-danger p-2"></div>
         </div>
 
         <div class="mb-3">
             <label for="password" class="form-label">パスワード</label>
-            <input type="password" class="form-control" id="password" name="password" required minlength="5" maxlength="64">
+            <input type="password" class="form-control" id="password" name="password" th:field="*{password}" required minlength="5" maxlength="64">
+            <div th:errors="*{password}" class="alert-danger p-2"></div>
         </div>
 
         <div class="mb-3">
             <label for="name" class="form-label">氏名</label>
-            <input type="text" class="form-control" id="name" name="name" maxlength="255">
+            <input type="text" class="form-control" id="name" name="name" maxlength="255" th:field="*{name}">
+            <div th:errors="*{name}" class="alert-danger p-2"></div>
         </div>
 
         <button type="submit" class="btn btn-primary">登録</button>

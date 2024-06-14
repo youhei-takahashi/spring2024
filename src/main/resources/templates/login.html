@@ -9,6 +9,8 @@
     <div class="alert alert-danger" th:if="${param.error}">
         ID、またはパスワードが違います
     </div>
+    <div class="alert alert-info" th:if="${message}" th:text="${message}">
+    </div>
     <form th:action="@{/login}" method="post">
         <p>ID：<input class="form-control" type="text" name="username"></p>
         <p>パスワード：<input class="form-control" type="password" name="password"></p>
