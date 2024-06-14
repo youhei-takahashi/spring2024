@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="ja">
+<html lang="ja" xmlns:sec="http://www.w3.org/1999/xhtml">
 
 <th:block th:fragment="head(title)">
 <head>
@@ -25,11 +25,28 @@
           <li class="nav-item">
             <a class="nav-link" href="#">検索</a>
           </li>
-          <li class="nav-item">
+          <li class="nav-item" sec:authorize="isAnonymous()">
             <a class="nav-link" th:href="@{/common/register}">ユーザ登録</a>
           </li>
-          <li class="nav-item">
+          <li class="nav-item" sec:authorize="isAnonymous()">
             <a class="nav-link" th:href="@{/login}">ログイン</a>
+          </li>
+          <li class="nav-item" sec:authorize="hasRole('GENERAL')">
+            <a class="nav-link" href="#">貸出一覧</a>
+          </li>
+          <li class="nav-item" sec:authorize="hasRole('ADMIN')">
+            <a class="nav-link" href="#">図書登録</a>
+          </li>
+          <li class="nav-item" sec:authorize="hasRole('ADMIN')">
+            <a class="nav-link" href="#">図書更新</a>
+          </li>
+          <li class="nav-item" sec:authorize="hasRole('ADMIN')">
+            <a class="nav-link" href="#">図書削除</a>
+          </li>
+          <li class="nav-item" sec:authorize="isAuthenticated()">
+            <form th:action="@{/logout}" method="post">
+              <button type="submit" class="nav-link" style="background:none;border:none;">ログアウト</button>
+            </form>
           </li>
         </ul>
       </div>
