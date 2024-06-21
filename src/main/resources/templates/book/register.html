@@ -6,8 +6,41 @@
 <th:block th:replace="~{layout :: header}"></th:block>
 
 <main class="container mt-3">
+    <div class="alert alert-info" th:if="${message}" th:text="${message}">message info</div>
     <h3>図書登録</h3>
-    <p>図書登録画面です。</p>
+    <form th:action="@{/book/register}" th:object="${bookForm}" method="post">
+        <div class="mb-3">
+            <label for="title" class="form-label">タイトル</label>
+            <input type="text" class="form-control" id="title" name="title" th:field="*{title}" required maxlength="255">
+            <div th:errors="*{title}" class="alert alert-danger p-2">error message</div>
+        </div>
+        <div class="mb-3">
+            <label for="author" class="form-label">著者</label>
+            <input type="text" class="form-control" id="author" name="author" th:field="*{author}" maxlength="255">
+            <div th:errors="*{author}" class="alert alert-danger p-2">error message</div>
+        </div>
+        <div class="mb-3">
+            <label for="publisher" class="form-label">出版社</label>
+            <input type="text" class="form-control" id="publisher" name="publisher" th:field="*{publisher}" maxlength="255">
+            <div th:errors="*{publisher}" class="alert alert-danger p-2">error message</div>
+        </div>
+        <div class="mb-3">
+            <label for="publicationDate" class="form-label">出版日</label>
+            <input type="date" class="form-control" id="publicationDate" name="publicationDate" th:field="*{publicationDate}">
+            <div th:errors="*{publicationDate}" class="alert alert-danger p-2">error message</div>
+        </div>
+        <div class="mb-3">
+            <h6>タグ</h6>
+            <div th:errors="*{tagIdList}" class="alert alert-danger p-2">error message</div>
+            <div th:each="tag : ${tagList}" class="form-check">
+                <input type="checkbox" class="form-check-input" th:value="${tag.id}" th:name="tagIdList" th:id="${'tag' + tag.id}">
+                <label th:for="${'tag' + tag.id}" th:text="${tag.tagName}" class="form-check-label">タグ</label>
+            </div>
+        </div>
+
+
+        <button type="submit" class="btn btn-primary">登録</button>
+    </form>
 </main>
 
 <th:block th:replace="~{layout :: footer}"></th:block>

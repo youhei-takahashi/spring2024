@@ -17,7 +17,7 @@ public class WebSecurityConfig {
         http
             .authorizeHttpRequests(requests -> requests
                 .requestMatchers("/", "/common/**").permitAll()   // "/", "/common/**" というリクエストに対してはログイン不要
-                .requestMatchers("/tag/**").hasRole("ADMIN")       // "/tag/**" に対しては ADMIN 権限が必要
+                .requestMatchers("/tag/**", "/book/**").hasRole("ADMIN")       // "/tag/**" に対しては ADMIN 権限が必要
                 .anyRequest().authenticated()         // それ以外のリクエストに対してはログインが必要
             ).formLogin(login -> login
                 .loginProcessingUrl("/login")        // ログイン処理を行うURL (POST)
