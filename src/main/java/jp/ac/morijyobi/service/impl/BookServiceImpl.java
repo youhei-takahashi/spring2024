@@ -9,6 +9,8 @@ import jp.ac.morijyobi.service.BookService;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+
 @Service
 public class BookServiceImpl implements BookService {
     private final BooksMapper booksMapper;
@@ -36,5 +38,10 @@ public class BookServiceImpl implements BookService {
             BookTag bookTag = new BookTag(book.getId(), tagId);
             bookTagsMapper.insertBookTag(bookTag);
         }
+    }
+
+    @Override
+    public List<Book> getBooksByTitle(String keyword) {
+        return booksMapper.selectBooksByKeyword(keyword);
     }
 }

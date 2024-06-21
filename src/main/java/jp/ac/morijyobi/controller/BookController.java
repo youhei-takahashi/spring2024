@@ -1,5 +1,6 @@
 package jp.ac.morijyobi.controller;
 
+import jp.ac.morijyobi.bean.entity.Book;
 import jp.ac.morijyobi.bean.entity.Tag;
 import jp.ac.morijyobi.bean.form.BookForm;
 import jp.ac.morijyobi.service.BookService;
@@ -11,6 +12,7 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.List;
@@ -51,5 +53,14 @@ public class BookController {
         bookService.registerBook(bookForm);
         redirectAttributes.addFlashAttribute("message", "登録が完了しました。");
         return "redirect:/book/register";
+    }
+
+    @GetMapping("/list")
+    public String bookList(@RequestParam(defaultValue = "") String keyword,
+                           Model model) {
+        List<Book> bookList = bookService.getBooksByTitle(keyword);
+        model.addAttribute("bookList", bookList);
+
+        return "book/list";
     }
 }
