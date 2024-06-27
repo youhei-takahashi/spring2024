@@ -1,5 +1,6 @@
 package jp.ac.morijyobi.service.impl;
 
+import jp.ac.morijyobi.bean.dto.LoanedBookDTO;
 import jp.ac.morijyobi.bean.entity.Book;
 import jp.ac.morijyobi.bean.entity.BookLoan;
 import jp.ac.morijyobi.bean.entity.BookTag;
@@ -9,6 +10,7 @@ import jp.ac.morijyobi.mapper.BookTagsMapper;
 import jp.ac.morijyobi.mapper.BooksMapper;
 import jp.ac.morijyobi.mapper.UsersMapper;
 import jp.ac.morijyobi.service.BookService;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -72,5 +74,11 @@ public class BookServiceImpl implements BookService {
         }
 
         return false;
+    }
+
+    @Override
+    public List<LoanedBookDTO> getLoanedBoosListByUserId(UserDetails userDetails) {
+        int userId = usersMapper.selectUserByUsername(userDetails.getUsername()).getId();
+        return bookLoansMapper.selectLoanedBooksByUserId(userId);
     }
 }

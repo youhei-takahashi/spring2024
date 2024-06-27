@@ -32,7 +32,7 @@
             <a class="nav-link" th:href="@{/login}">ログイン</a>
           </li>
           <li class="nav-item" sec:authorize="hasRole('GENERAL')">
-            <a class="nav-link" href="#">貸出一覧</a>
+            <a class="nav-link" th:href="@{/book/loans}">貸出一覧</a>
           </li>
           <li class="nav-item" sec:authorize="hasRole('ADMIN')">
             <a class="nav-link" th:href="@{/book/register}">図書登録</a>

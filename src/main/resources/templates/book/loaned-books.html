@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="ja">
+<th:block th:replace="~{layout :: head(Top)}"></th:block>
+
+<body>
+<th:block th:replace="~{layout :: header}"></th:block>
+
+<main class="container mt-3">
+    <div class="alert alert-info" th:if="${message}" th:text="${message}">info message</div>
+    <div class="alert alert-danger" th:if="${warning}" th:text="${warning}">info message</div>
+    <h3>貸出一覧</h3>
+    <div class="mx-auto">
+        <table class="table table-striped">
+            <colgroup>
+                <col style="width: 5%;">
+                <col style="width: 40%;">
+                <col style="width: 15%;">
+                <col style="width: 15%;">
+            </colgroup>
+            <thead>
+            <tr>
+                <th>No.</th>
+                <th>図書名</th>
+                <th>貸出日</th>
+                <th>返却日</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="book,info : ${loanedBookList}">
+                <td><span th:text="${info.count}">0</span></td>
+                <td><span th:text="${book.title}">book title</span></td>
+                <td><span th:text="${#temporals.format(book.checkoutDate, 'yyyy/MM/dd HH:mm:ss')}">book author</span></td>
+                <td><span th:text="${#temporals.format(book.returnDate, 'yyyy/MM/dd HH:mm:ss')}">book publisher</span></td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</main>
+
+<th:block th:replace="~{layout :: footer}"></th:block>
+<th:block th:replace="~{layout :: script}"></th:block>
+</body>
+</html>
