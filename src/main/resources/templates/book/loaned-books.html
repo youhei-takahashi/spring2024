@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="ja">
+<html lang="ja" xmlns:sec="http://www.w3.org/1999/xhtml">
 <th:block th:replace="~{layout :: head(Top)}"></th:block>
 
 <body>
@@ -12,25 +12,40 @@
     <div class="mx-auto">
         <table class="table table-striped">
             <colgroup>
-                <col style="width: 5%;">
-                <col style="width: 40%;">
-                <col style="width: 15%;">
-                <col style="width: 15%;">
+                <col style="width: 5%">
+                <col style="width: 25%">
+                <col style="width: 10%">
+                <col style="width: 10%">
+                <col style="width: 10%">
+                <col style="width: 15%">
+                <col style="width: 15%">
+                <col style="width: 10%">
             </colgroup>
             <thead>
             <tr>
                 <th>No.</th>
                 <th>図書名</th>
-                <th>貸出日</th>
-                <th>返却日</th>
+                <th>著者</th>
+                <th>出版社</th>
+                <th>出版日</th>
+                <th>貸出日時</th>
+                <th>返却日時</th>
+                <th></th>
             </tr>
             </thead>
             <tbody>
             <tr th:each="book,info : ${loanedBookList}">
                 <td><span th:text="${info.count}">0</span></td>
                 <td><span th:text="${book.title}">book title</span></td>
-                <td><span th:text="${#temporals.format(book.checkoutDate, 'yyyy/MM/dd HH:mm:ss')}">book author</span></td>
-                <td><span th:text="${#temporals.format(book.returnDate, 'yyyy/MM/dd HH:mm:ss')}">book publisher</span></td>
+                <td><span th:text="${book.author}">book author</span></td>
+                <td><span th:text="${book.publisher}">book publisher</span></td>
+                <td><span th:text="${#temporals.format(book.publicationDate, 'yyyy/MM/dd')}">book publicationDate</span></td>
+                <td><span th:text="${#temporals.format(book.checkoutDate, 'yyyy/MM/dd hh:mm')}">book checkoutDate</span></td>
+                <td><span th:text="${#temporals.format(book.returnDate, 'yyyy/MM/dd hh:mm')}">book returnDate</span></td>
+                <td>
+                    <a th:if="${book.returnDate == null}" th:href="@{/book/return(bookId=${book.bookId})}" sec:authorize="hasRole('GENERAL')"
+                       class="btn btn-primary float-end">返却</a>
+                </td>
             </tr>
             </tbody>
         </table>

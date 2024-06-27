@@ -81,4 +81,11 @@ public class BookServiceImpl implements BookService {
         int userId = usersMapper.selectUserByUsername(userDetails.getUsername()).getId();
         return bookLoansMapper.selectLoanedBooksByUserId(userId);
     }
+
+    @Override
+    public boolean returnBookLoans(int bookId, UserDetails userDetails) {
+        int userId = usersMapper.selectUserByUsername(userDetails.getUsername()).getId();
+        int count = bookLoansMapper.returnBookLoans(bookId, userId);
+        return count > 0;
+    }
 }
