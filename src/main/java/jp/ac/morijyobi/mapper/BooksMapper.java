@@ -17,4 +17,7 @@ public interface BooksMapper {
     @Select("SELECT id, title, author, publisher, publication_date FROM books "
             + "WHERE title LIKE CONCAT('%', #{keyword}, '%') ORDER BY publication_date DESC")
     List<Book> selectBooksByKeyword(String keyword);
+
+    @Select("SELECT id, title, author, publisher, publication_date FROM books WHERE id = #{id}")
+    Book selectBookById(int id);
 }

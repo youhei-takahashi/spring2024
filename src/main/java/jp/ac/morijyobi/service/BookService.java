@@ -10,4 +10,8 @@ public interface BookService {
     void registerBook(BookForm bookForm);
 
     List<Book> getBooksByTitle(String keyword);
+
+    Book getBookById(int id);
+
+    boolean registerBookLoans(int bookId, String username);
 }
